@@ -38,7 +38,7 @@ class Ribbon
       positions=[-WIDTH/3.25, 0, WIDTH/3.25] # Push them out a bit as they are fairly wide
     end
     positions.each do |x|
-      out<< "<use x=\"#{x*SCALE}\" xlink:href=\"#{device}\" class=\"device\" />"
+      out<< "<use x=\"#{x*SCALE}\" xlink:href=\"#{device}\" class=\"device\" style=\"filter:url(\'#shadow\');fill: #a05a2c;\" />"
     end
   end
 end
@@ -53,7 +53,7 @@ class SolidRibbon < Ribbon
   end
   
   def draw(out)
-    out << "<rect width=\"#{WIDTH*SCALE}\" height=\"#{HEIGHT*SCALE}\" style=\"fill:rgb(#{colour.join(", ")});\"/>"
+    out << "<rec width=\"#{WIDTH*SCALE}\" height=\"#{HEIGHT*SCALE}\" style=\"fill:rgb(#{colour.join(", ")});\"/>"
   end
 
 end
@@ -157,12 +157,12 @@ RIBBONS['GCR']=MirrorRibbon.new(4, "Knight Grand Cross, King Roger", [[Colours::
 RIBBONS['GCE']=MirrorRibbon.new(5, "Knight Grand Cross, Queen Elizabeth", [[Colours::GOLD, 2],[Colours::SILVER, 31]], set: :order_queen_elizabeth)
 class << RIBBONS['GCR']
   def drawDevices(n, out)
-    out<< "<use xlink:href=\"\#crown\" class=\"device\" >"
+    out<< "<use xlink:href=\"\#crown\" class=\"device\" style=\"filter:url(\'#shadow\');fill: #aaaaaa; stroke: #555555; stroke-width: 0.5px;\" />"
   end
 end
 class << RIBBONS['GCE']
   def drawDevices(n, out)
-    out<< "<use xlink:href=\"\#crown\" class=\"device\">"
+    out<< "<use xlink:href=\"\#crown\" class=\"device\" style=\"filter:url(\'#shadow\');fill: #aaaaaa; stroke: #555555; stroke-width: 0.5px;\" />"
   end
 end
 
@@ -235,7 +235,19 @@ RIBBONS['MUA']=nil # 44, Naval Meritorious Unit Award, Unit Citation
 RIBBONS['FEA']=MirrorRibbon.new(45, "Fleet Excellence Award", [[Colours::CRIMSON,2],[Colours::GOLD, 2],[Colours::SPACE_BLACK, nil]])
 class << RIBBONS['FEA']
   def drawDevices(n, out)
-    out<< "<use xlink:href=\"\#fleet_e\" class=\"device\">"
+    device = "#star"
+    positions=[]
+    case n
+    when 1
+      positions=[0]
+    when 2
+      positions=[-WIDTH/6.0, WIDTH/6.0]
+    else
+      positions=[-WIDTH/4.0, 0, WIDTH/4.0]
+    end
+    positions.each do |x|
+      out<< "<use x=\"#{x*SCALE}\" xlink:href=\"#fleet_e\" class=\"device\" style=\"filter:url(\'#shadow\');\" />"
+    end
   end
 end
 
@@ -329,8 +341,8 @@ end
 def ribbon_out(ribbon, n, out, defs)
   return if ribbon.nil?
   title = ribbon.name
-  title+=" (&times;#{n})"if(n>1)
-  out << "<svg width=\"#{Ribbon::WIDTH*Ribbon::SCALE}\" height=\"#{Ribbon::HEIGHT*Ribbon::SCALE}\" title=\"#{title}\">"
+  title+=" (&#215;#{n})"if(n>1)
+  out << "<svg xmlns=\"http://www.w3.org/2000/svg\"  xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"#{Ribbon::WIDTH*Ribbon::SCALE}\" height=\"#{Ribbon::HEIGHT*Ribbon::SCALE}\" title=\"#{title}\">"
   if defs
     out << <<EOS
               <defs>
@@ -351,6 +363,7 @@ def ribbon_out(ribbon, n, out, defs)
 		  <rect width="#{Ribbon::WIDTH*Ribbon::SCALE}" height="#{Ribbon::HEIGHT*Ribbon::SCALE}" style="opacity:0.25; fill:url(#ribbon-shape);"/>
 		</symbol>
 		<symbol id="star" viewbox="-13.5 -13.5 27 27">
+                  <g <!--transform="translate(#{Ribbon::WIDTH*Ribbon::SCALE/2},#{Ribbon::HEIGHT*Ribbon::SCALE/2})" -->>
 		  <path
 		     style="stroke:none;"
 		     d="m 0.00124526,-9.8799597 2.41080364,3.2564908 3.940014,-0.944982 -0.2464492,4.0442513 3.6256485,1.808694 L 6.9428765,1.2241562 8.5576784,4.9402181 4.5320729,5.3997899 3.3804443,9.2844331 0.00124446,7.0488762 -3.3779547,9.2844329 -4.5295837,5.3997892 -8.5551886,4.9402177 l 1.6148019,-3.7160626 -2.7883854,-2.9396612 3.625649,-1.8086944 -0.2464494,-4.0442507 3.9400146,0.9449819 z" />
@@ -427,9 +440,11 @@ def ribbon_out(ribbon, n, out, defs)
 		    <path
 		       d="M 58.603438,9.9744424 52.5,13.500027" />
 		  </g>
+                  </g>
 		</symbol>
     <symbol
        id="crown" viewbox="-18 -14.5 36 27">
+      <g transform="translate(#{Ribbon::WIDTH*Ribbon::SCALE/2},#{Ribbon::HEIGHT*Ribbon::SCALE/2})">
       <path
          transform="scale(0.9)"
          style="stroke:none;"
@@ -490,6 +505,7 @@ def ribbon_out(ribbon, n, out, defs)
         </g>
         <g>
           <path
+                  transform="translate(#{Ribbon::WIDTH*Ribbon::SCALE/2},#{Ribbon::HEIGHT*Ribbon::SCALE/2})"
              d="m 489.36747,388.10699 c 0.51104,0.0503 1.06458,0.18475 1.24062,0.8286 0.12941,0.43081 -0.20432,1.08402 -0.52937,1.50525 -0.31041,0.39293 -0.65674,0.73707 -1.00072,1.01182 -0.14303,0.0859 -0.24132,-0.10485 -0.0917,-0.29396 0.20097,-0.42967 0.0138,-0.72389 -0.1982,-0.80449 -0.44664,-0.16684 -1.02607,-0.0163 -1.58419,0.32356 -0.31962,0.22267 -0.65092,0.52136 -0.90438,0.93706 -0.31237,0 -0.62474,0 -0.9371,0 0.32385,-0.76195 0.73427,-1.50378 1.20777,-2.14725 0.6616,-0.85877 1.46015,-1.1868 2.14688,-1.31599 0.22441,-0.0439 0.43852,-0.0466 0.65037,-0.0446 z" />
           <path
              d="m 482.85976,388.10699 c 0.69553,0.0357 1.38383,0.26891 1.68449,1.04021 0.16353,0.57386 0.14447,1.30706 0.055,2.04728 -0.0437,0.19464 -0.0207,0.51938 -0.2096,0.42029 -0.26473,0 -0.52947,0 -0.79421,0 -0.0272,-0.87905 -0.57544,-1.2603 -1.15938,-1.31913 -0.32639,-0.0304 -0.7594,-0.003 -1.10886,0.48073 -0.14045,0.19449 -0.11854,0.4212 -0.21544,0.62276 -0.25073,0.2188 -0.3101,-0.15366 -0.40024,-0.31012 -0.15571,-0.4249 -0.33069,-0.9309 -0.12033,-1.5889 0.20535,-0.63678 0.72697,-0.98826 1.12419,-1.16784 0.39916,-0.17643 0.78465,-0.23495 1.14435,-0.22528 z" />
@@ -499,9 +515,11 @@ def ribbon_out(ribbon, n, out, defs)
              d="m 483.8321,391.61446 c -0.26187,0.003 -0.63803,0.11952 -0.8632,0.54131 -0.16262,0.38155 0.0596,0.59856 0.24373,0.66789 0.39915,0.0863 0.85345,0.0176 1.27539,0.0396 0.48237,-0.019 0.94499,0.0397 1.4409,-0.0324 0.22922,-0.0662 0.59796,-0.28488 0.66526,-0.68706 0.0171,-0.486 -0.36273,-0.549 -0.66538,-0.52942 -0.6989,4e-5 -1.39783,-6e-5 -2.0967,5e-5 z" />
         </g>
       </g>
+      </g>
     </symbol>
     <symbol id="fleet_e" viewbox="-13.5 -13.5 27 27">
     <path
+       transform="translate(#{Ribbon::WIDTH*Ribbon::SCALE/2},#{Ribbon::HEIGHT*Ribbon::SCALE/2})"
        style="fill:url(#linearGradient27741);stroke:url(#linearGradient27814);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;"
        d="m 0.00847179,6.8280633 6.42000001,0 c 0.76,0 1.37,-0.04 1.83,-0.12 0.48,-0.1 0.89,-0.21 1.23,-0.33 l 0.12,0 0.12,-0.06 -0.66,3.6899997 -1.59,0 -15.36,0 -0.03,0 0,0 c 0.02,-0.02 0.03,-0.04 0.03,-0.06 0.18,-0.36 0.32,-0.76 0.42,-1.2 0.1,-0.46 0.15,-1.14 0.15,-2.04 l 0,-12.66 c 0,-0.9 -0.05,-1.57 -0.15,-2.01 -0.1,-0.46 -0.24,-0.87 -0.42,-1.23 -0.023685,-0.027075 -0.016444,-0.032889 -0.03,-0.06 l 1.29,0 15.36,0 0.03,0 0.6,3.69 c -0.04,-0.02 -0.08,-0.03 -0.12,-0.03 -0.04,-0.02 -0.08,-0.03 -0.12,-0.03 -0.36,-0.12 -0.78,-0.22 -1.26,-0.3 -0.46,-0.1 -1.09,-0.15 -1.89,-0.15 l -5.97000001,0 0,4.56 5.22000001,0 c 0.78,0 1.4,-0.04 1.86,-0.12 0.48,-0.1 0.9,-0.21 1.26,-0.33 l 0.12,0 0.12,-0.06 0,4.2 c -0.04,-0.02 -0.08,-0.03 -0.12,-0.03 -0.04,-0.02 -0.08,-0.03 -0.12,-0.03 -0.36,-0.12 -0.78,-0.22 -1.26,-0.3 -0.46,-0.1 -1.08,-0.15 -1.86,-0.15 l -5.22000001,0 0,5.16 z"/></symbol>
     <linearGradient
@@ -538,6 +556,8 @@ def ribbon_out(ribbon, n, out, defs)
     <symbol
        id="star_laurel"
        viewbox="-18 -13.5 36 27">
+                  <g transform="translate(#{Ribbon::WIDTH*Ribbon::SCALE/2},#{Ribbon::HEIGHT*Ribbon::SCALE/2})">
+
       <g
          id="half_laurel">
         <use
@@ -694,6 +714,7 @@ def ribbon_out(ribbon, n, out, defs)
              d="M 58.603438,9.9744424 52.5,13.500027" />
         </g>
       </g>
+      </g>
     </symbol>
 
 		<filter height="116%" width="116%" y="-8%" x="-8%"  id="shadow">
@@ -735,17 +756,18 @@ def board(entries, out, defs)
   out<< "</div>"
   
 end
+
 records = [
-  ["Lieutenant-Commander", "Sir Mark Gledhill, KCE",['KR3CM','SSD','AFSM','NCD', 'MT','HOSM','SAPC','PE','RE','RTR','NAM','HOSM','SAPC','MCAM','MCAM','KCE','MT']],
-  ["Lieutenant (SG)", "Robert Allen Day", ['KR3CM','SSD','AFSM']],
-  ["Chief Petty Officer", "Kyle Polkinghorne", ['SSD','MD','HOSM','SAPC']],
+  ["Commander", "Sir Mark Gledhill, KCE",['KR3CM','SSD','AFSM','NCD', 'MT','HOSM','SAPC','PE','RE','RTR','NAM','HOSM','SAPC','MCAM','MCAM','KCE','MT','MWHS-CLM', 'EDHS-CLM', 'MSM', 'HOSM', 'SAPC']],
+  ["Lieutenant-Commander", "Robert Allen Day", ['KR3CM','SSD','AFSM']],
+  ["Ensign", "Rowan Wilson", ['SSD','AFSM', 'HOSM', 'SAPC']],
+  ["Chief Petty Officer", "Kyle Polkinghorne", ['SSD','MD','HOSM','SAPC','NAM', 'HOSM', 'SAPC']],
   ["Disbursing Clerk First Class", "Thomas Demkiw", ['SSD']],
-  ["Spacer First Class", "Rowan Wilson", ['SSD','AFSM']],
-  ["Data Systems Technician Second Class", "Kevin Michael Smith", ['SSD','AFSM', 'MCAM']],
+  ["Data Systems Technician First Class", "Kevin Michael Smith", ['SSD','AFSM', 'MCAM', 'HOSM', 'SAPC']],
+  ["Spacer Second Class", "Robert Bligh", ['SSD','AFSM']],
+  ["Spacer Second Class", "John Barazzuol", ['SSD']],
   ["Spacer Third Class", "Avi Woodward-Kelen", []],
-  ["Spacer Third Class", "Robert Bligh", ['SSD']],
-  ["Spacer Third Class", "John Barazzuol", []],
-  ["Examplar-General", "Dame Alice Foo, PMV, GCE, OM, OG", ['KR3CM','SSD','AFSM','NCD', 'MT','SAPC','PE','RE','RTR','NAM','SAPC','MCAM','MCAM','GCE','MT','KDE', 'PMV', 'MCAM', 'FEA', 'POW','POW','POW','POW', 'OM', 'RM', 'MC', 'OG','OG','OG','OG','OG']+['HOSM']*15],
+  ["Spacer Third Class", "Rachel Pederson", []]
 ]
 puts <<EOS
 <!DOCTYPE html>
@@ -795,3 +817,12 @@ puts <<EOS
   </body>
 </html>
 EOS
+
+RIBBONS.each_pair.select{|key, ribbon| not ribbon.nil?}.to_a.sort{|p1, p2| p1[1].order <=> p2[1].order}.each do |key, ribbon|
+  1.upto(5) do |n|
+    open("#{key}-#{n}.svg",'w') do |out|
+      ribbon_out(ribbon, n, out, true)
+    end
+  end
+end
+
