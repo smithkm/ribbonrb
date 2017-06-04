@@ -246,6 +246,7 @@ module Colours
   TURQUOISE     = [   0, 140, 130]
   JADE          = [   0, 178, 122]
   RUBY          = [ 229,   5,  58]
+  SAPPHIRE      = [ 17,   34, 175]
 end
 
 RIBBONS = {}
@@ -329,7 +330,7 @@ RIBBONS['POW']=MirrorRibbon.new(46, "Prisoner of War Medal", [[Colours::GOLD,2],
 
 # 47 No Abbr Survivor's Cross
 
-RIBBONS['SAPC']=MirrorRibbon.new(48, "Silesian Anti-Piracy Campaign Medal", [[Colours::SCARLET,5],[Colours::ROYAL_BLUE,11],[Colours::GOLD,3]])
+RIBBONS['SAPC']=MirrorRibbon.new(48, "Silesian Anti-Piracy Campaign Medal", [[Colours::SCARLET,5],[Colours::SAPPHIRE,11],[Colours::GOLD,3]])
 
 RIBBONS['MOM']=MirrorRibbon.new(49, "Masadan Occupation Medal", [[Colours::CRIMSON,4],[Colours::GOLD,3.8],[Colours::CRIMSON,2],[Colours::GOLD,3.8],[Colours::CRIMSON,2],[Colours::GOLD,3.8]])
 
