@@ -242,7 +242,7 @@ class VerticalRibbon < Ribbon
   def draw(out)
     x=0
     colours.each do |colour, width|
-      out << "<rect x=\"#{x*SCALE}\" width=\"#{width*SCALE}\" height=\"#{HEIGHT*SCALE}\" style=\"fill:rgb(#{colour.join(", ")});\"/>"
+      out << "<rect x=\"#{x*SCALE}\" width=\"#{width*SCALE+1}\" height=\"#{HEIGHT*SCALE}\" style=\"fill:rgb(#{colour.join(", ")});\"/>"
       x+=width
     end
     #out << "<!-- ERROR total width was #{x} instead of #{WIDTH} -->" unless x==#{WIDTH}
@@ -362,7 +362,7 @@ RIBBONS['DSD']=MirrorRibbon.new(nil, "Distinguished Service Decoration", [[Colou
 RIBBONS['MR']=SolidRibbon.new(24, "Member, King Roger", Colours::SCARLET, set: :order_king_roger, devices: DevicesNone.new)
 RIBBONS['MGL']=SolidRibbon.new(nil, "Member, King RogerGolden Lion", Colours::DARK_GREEN, set: :order_golden_lion, devices: DevicesNone.new)
 RIBBONS['ME']=SolidRibbon.new(25, "Member, Queen Elizabeth", Colours::SILVER, set: :order_queen_elizabeth, devices: DevicesNone.new)
-RIBBONS['MMM']=MirrorRibbon.new(nil,  "Officer, Legion of Merit", [[Colours::COOL_GREY, 5],[Colours::CRIMSON, 5]], set: :order_military_merit, devices: DevicesOne.new("#swords", Metals::BRONZE))
+RIBBONS['MMM']=MirrorRibbon.new(nil,  "Member, Legion of Merit", [[Colours::COOL_GREY, 5],[Colours::CRIMSON, 5]], set: :order_military_merit, devices: DevicesOne.new("#swords", Metals::BRONZE))
 
 RIBBONS['MT']=nil # 26, Monarch's Thanks, not a ribbon
 
@@ -2107,11 +2107,15 @@ EOS
   out << "</svg>"
 end
 
-RIBBONS.each_pair.select{|key, ribbon| not ribbon.nil?}.to_a.each do |key, ribbon|
-  ribbon.devices.values(15).each do |n|
-    open("ribbons/#{key}-#{n}.svg",'w') do |out|
-      ribbon_out(ribbon, n, out, true)
+open("ribbons/demo.html",'w') do |demo|
+
+  RIBBONS.each_pair.select{|key, ribbon| not ribbon.nil?}.to_a.each do |key, ribbon|
+    ribbon.devices.values(15).each do |n|
+      open("ribbons/#{key}-#{n}.svg",'w') do |out|
+        ribbon_out(ribbon, n, out, true)
+        demo<< "<img src=\"#{key}-#{n}.svg\" title=\"#{ribbon.name} (&times;#{n})\"/>"
+      end
     end
   end
-end
 
+end
