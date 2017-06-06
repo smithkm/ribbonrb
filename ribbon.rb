@@ -278,18 +278,23 @@ end
 RIBBONS = {}
 
 GSN_CROSS_STRIPE = Ribbon::WIDTH/7
-RIBBONS['CCFe']=MirrorRibbon.new(nil, "Cross of Courage in Steel", [[Colours::ROSE, GSN_CROSS_STRIPE],[Colours::VIOLET, nil]], devices: DevicesNone.new)
-RIBBONS['CCCu']=MirrorRibbon.new(nil, "Cross of Courage in Bronze", [[Colours::ROSE, GSN_CROSS_STRIPE],[Colours::VIOLET, GSN_CROSS_STRIPE*2], [Colours::BRONZE, nil]], devices: DevicesNone.new)
-RIBBONS['CCAg']=MirrorRibbon.new(nil, "Cross of Courage in Silver", [[Colours::ROSE, GSN_CROSS_STRIPE],[Colours::VIOLET, GSN_CROSS_STRIPE*1.5], [Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesNone.new)
-RIBBONS['CCAu']=MirrorRibbon.new(nil, "Cross of Courage in Gold", [[Colours::ROSE, GSN_CROSS_STRIPE],[Colours::VIOLET, GSN_CROSS_STRIPE], [Colours::GOLD, GSN_CROSS_STRIPE*0.5],[Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesNone.new)
-RIBBONS['CCX']=MirrorRibbon.new(nil, "Cross of Courage with Crossed Swords", [[Colours::ROSE, GSN_CROSS_STRIPE],[Colours::VIOLET, GSN_CROSS_STRIPE], [Colours::GOLD, GSN_CROSS_STRIPE*0.5],[Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesOne.new("#swords", Metals::GOLD))
-RIBBONS['CCW']=MirrorRibbon.new(nil, "Cross of Courage with Laurel Wreath", [[Colours::ROSE, GSN_CROSS_STRIPE],[Colours::VIOLET, GSN_CROSS_STRIPE], [Colours::GOLD, GSN_CROSS_STRIPE*0.5],[Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesOne.new("#swords_laurel", Metals::GOLD))
-RIBBONS['CCD']=MirrorRibbon.new(nil, "Cross of Courage in GoldWith Diamonds", [[Colours::ROSE, GSN_CROSS_STRIPE],[Colours::VIOLET, GSN_CROSS_STRIPE], [Colours::GOLD, GSN_CROSS_STRIPE*0.5],[Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesOne.new("#swords_diamonds", Metals::GOLD))
-
+[
+  ['CC', 'Cross of Courage', [Colours::ROSE, Colours::VIOLET]],
+  ['ArC', 'Armsman\'s Cross', [Colours::COOL_GREY, Colours::COOL_GREY]],
+  ['SwC', 'Sword\'s Cross', [Colours::BLOOD_RED, Colours::COOL_GREY]]
+]. each do |abbr, name, colours|
+  RIBBONS[abbr+'Fe']=MirrorRibbon.new(nil, name+" in Steel", [[colours[0], GSN_CROSS_STRIPE],[colours[1], nil]], devices: DevicesNone.new)
+  RIBBONS[abbr+'Cu']=MirrorRibbon.new(nil, name+" in Bronze", [[colours[0], GSN_CROSS_STRIPE],[colours[1], GSN_CROSS_STRIPE*2], [Colours::BRONZE, nil]], devices: DevicesNone.new)
+  RIBBONS[abbr+'Ag']=MirrorRibbon.new(nil, name+" in Silver", [[colours[0], GSN_CROSS_STRIPE],[colours[1], GSN_CROSS_STRIPE*1.5], [Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesNone.new)
+  RIBBONS[abbr+'Au']=MirrorRibbon.new(nil, name+" in Gold", [[colours[0], GSN_CROSS_STRIPE],[colours[1], GSN_CROSS_STRIPE], [Colours::GOLD, GSN_CROSS_STRIPE*0.5],[Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesNone.new)
+  RIBBONS[abbr+'X']=MirrorRibbon.new(nil, name+" with Crossed Swords", [[colours[0], GSN_CROSS_STRIPE],[colours[1], GSN_CROSS_STRIPE], [Colours::GOLD, GSN_CROSS_STRIPE*0.5],[Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesOne.new("#swords", Metals::GOLD))
+  RIBBONS[abbr+'W']=MirrorRibbon.new(nil, name+" with Laurel Wreath", [[colours[0], GSN_CROSS_STRIPE],[colours[1], GSN_CROSS_STRIPE], [Colours::GOLD, GSN_CROSS_STRIPE*0.5],[Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesOne.new("#swords_laurel", Metals::GOLD))
+  RIBBONS[abbr+'D']=MirrorRibbon.new(nil, name+" with Diamonds", [[colours[0], GSN_CROSS_STRIPE],[colours[1], GSN_CROSS_STRIPE], [Colours::GOLD, GSN_CROSS_STRIPE*0.5],[Colours::SILVER, GSN_CROSS_STRIPE*0.5],[Colours::BRONZE, nil]], devices: DevicesOne.new("#swords_diamonds", Metals::GOLD))
+end
 
 
 RIBBONS['PMV']=VerticalRibbon.new(1, "Parliamentary Medal of Valour", [[Colours::CRIMSON, Ribbon::WIDTH/3.0],[Colours::NAVY_BLUE,Ribbon::WIDTH/3.0],[Colours::WHITE,Ribbon::WIDTH/3.0]])
-RIBBONS['SG']=SolidRibbon.new(1, "Star of Grayson", Colours::BLOOD_RED, devices: DevicesOne.new("#star", Metals::GOLD))
+RIBBONS['SG']=SolidRibbon.new(1, "Star of Grayson", Colours::CRIMSON, devices: DevicesOne.new("#star_of_grayson", Metals::GOLD))
 RIBBONS['QCB']=SolidRibbon.new(2, "Queen's Cross for Bravery", Colours::FOREST_GREEN)
 RIBBONS['AM']=SolidRibbon.new(2, "Austin Medal", Colours::LIGHT_BLUE)
 
@@ -350,6 +355,7 @@ RIBBONS['GS']=MirrorRibbon.new(28, "The Gryphon Star", [[Colours::FOREST_GREEN, 
 RIBBONS['OCN']=MirrorRibbon.new(29, "Order of the Crown for Naval Service", [[Colours::NAVY_BLUE, 15.5],[Colours::BLOOD_RED,4]])
 
 RIBBONS['WS']=nil # 30, Wound Stripe, not a ribbon
+RIBBONS['WM']=MirrorRibbon.new(nil, "Wound Medal", [[Colours::CRIMSON, 13],[Colours::WHITE,3],[Colours::CRIMSON, nil]])
 
 RIBBONS['QBM']=MirrorRibbon.new(31, "Queen's Bravery Medal", [[Colours::CRIMSON,2],[Colours::FOREST_GREEN,10.5],[Colours::CRIMSON,4],[Colours::WHITE,2]])
 
@@ -376,16 +382,18 @@ RIBBONS['MAM']=MirrorRibbon.new(41, "Marine Achievement Medal", [[Colours::PURPL
 RIBBONS['LHC']=MirrorRibbon.new(42, "List of Honor Citation", [[Colours::SPACE_BLACK,5],[Colours::CRIMSON, nil]], devices: DevicesFrame.new(frame_colour: Metals::GOLD, sub_devices: DevicesOne.new("#scroll", Metals::GOLD)))
 RIBBONS['LHCP']=MirrorRibbon.new(nil, "Personal List of Honor Citation", [[Colours::SPACE_BLACK,5],[Colours::CRIMSON, nil]], devices: DevicesFrame.new(frame_colour: Metals::GOLD, sub_devices: DevicesNone.new))
 RIBBONS['RUC']=MirrorRibbon.new(43, "Royal Unit Citation for Gallantry", [[Colours::SCARLET,5],[Colours::GOLD, nil]], devices: DevicesFrame.new(frame_colour: Metals::GOLD))
-RIBBONS['PUC']=nil # 43, Protector's Citation for Gallantry, Unit Citation
+RIBBONS['PUC']=SolidRibbon.new(43, "Protector's Unit Citation for Gallantry", Colours::LIGHT_BLUE, devices: DevicesFrame.new(frame_colour: Metals::GOLD))
 RIBBONS['RMU']=MirrorRibbon.new(44, "Royal Meritorious Unit Citation", [[Colours::GOLD,5],[Colours::SCARLET, nil]], devices: DevicesFrame.new(frame_colour: Metals::GOLD))
-RIBBONS['MUA']=nil # 44, Naval Meritorious Unit Award, Unit Citation
+RIBBONS['MUA']=SolidRibbon.new(44, "Meritorious Unit Award", Colours::EMERALD, devices: DevicesFrame.new(frame_colour: Metals::GOLD))
 
 RIBBONS['FEA']=MirrorRibbon.new(45, "Fleet Excellence Award", [[Colours::CRIMSON,2],[Colours::GOLD, 2],[Colours::SPACE_BLACK, nil]], devices: DevicesSpecialWithStars.new)
 RIBBONS['FEAG']=MirrorRibbon.new(45, "Fleet Excellence Award in Gold", [[Colours::CRIMSON,2],[Colours::GOLD, 2],[Colours::SPACE_BLACK, nil]], devices: DevicesSpecialWithStars.new(special_colour: Metals::GOLD))
+RIBBONS['AREA']=MirrorRibbon.new(45, "Army Regimental Excellence Award", [[Colours::ORANGE,2],[Colours::CRIMSON, 2],[Colours::FOREST_GREEN, nil]], devices: DevicesSpecialWithStars.new)
+RIBBONS['AREAG']=MirrorRibbon.new(45, "Army Regimental Excellence Award in Gold", [[Colours::ORANGE,2],[Colours::CRIMSON, 2],[Colours::FOREST_GREEN, nil]], devices: DevicesSpecialWithStars.new(special_colour: Metals::GOLD))
 
 RIBBONS['POW']=MirrorRibbon.new(46, "Prisoner of War Medal", [[Colours::GOLD,2],[Colours::CHARCOAL_GREY, 11.5],[Colours::CRIMSON,nil]])
 
-RIBBONS['SvC']=MirrorRibbon.new(47, "Survivor's Cross", [[Colours::SILVER,3],[Colours::CRIMSON, 10],[Colours::GOLD,3],[Colours::CRIMSON, nil]])
+RIBBONS['SvC']=MirrorRibbon.new(47, "Survivor's Cross", [[Colours::SILVER,3],[Colours::SCARLET, 10],[Colours::GOLD,3],[Colours::SCARLET, nil]])
 
 RIBBONS['SAPC']=MirrorRibbon.new(48, "Silesian Anti-Piracy Campaign Medal", [[Colours::SCARLET,5],[Colours::SAPPHIRE,11],[Colours::GOLD,3]])
 
@@ -395,6 +403,7 @@ RIBBONS['SGMC']=MirrorRibbon.new(nil, "Second Grayson-Masada War Campaign Medal"
 RIBBONS['MOM']=MirrorRibbon.new(49, "Masadan Occupation Medal", [[Colours::CRIMSON,4],[Colours::GOLD,3.8],[Colours::CRIMSON,2],[Colours::GOLD,3.8],[Colours::CRIMSON,2],[Colours::GOLD,3.8]])
 
 RIBBONS['HWC']=MirrorRibbon.new(50, "Havenite War Campaign Medal", [[Colours::BLOOD_RED,2],[Colours::FOREST_GREEN,9.5],[Colours::WHITE,4],[Colours::SPACE_BLACK,nil]])
+RIBBONS['GSNHWC']=MirrorRibbon.new(50, "GSN Havenite War Campaign Medal", [[Colours::ROYAL_BLUE,14.5],[Colours::DARK_GREEN,2],[Colours::ROYAL_BLUE,nil]])
 RIBBONS['HOSM']=MirrorRibbon.new(51, "Havenite Operational Service Medal", [[Colours::BLOOD_RED,2],[Colours::FOREST_GREEN,9.5],[Colours::DARK_GREEN,4],[Colours::GOLD,nil]])
 
 RIBBONS['MHWM']=VerticalRibbon.new(52, "Manticore and Havenite 1905-1922 War Medal", [[Colours::SILVER,3],[Colours::DARK_GREEN, (Ribbon::WIDTH-9)/2],[Colours::SPACE_BLACK,3],[Colours::CRIMSON, (Ribbon::WIDTH-9)/2], [Colours::GOLD, 3]], devices: DevicesOne.new("#manticore", Metals::SILVER))
@@ -421,6 +430,7 @@ RIBBONS['RSGC']=MirrorRibbon.new(nil, "Grayson Space Navy Reserve Long Service a
 
 RIBBONS['SSD']=MirrorRibbon.new(60, "Space Service Deployment Ribbon", [[Colours::GOLD,4],[Colours::SPACE_BLACK,nil]], devices: DevicesNone.new)
 RIBBONS['SSR']=MirrorRibbon.new(60, "Space Service Ribbon", [[Colours::LIGHT_BLUE,2],[Colours::NAVY_BLUE,nil]], devices: DevicesNone.new)
+RIBBONS['ASDR']=MirrorRibbon.new(60, "Army Space Duty Ribbon", [[Colours::DARK_GREEN,2],[Colours::SPACE_BLACK,14.5],[Colours::DARK_GREEN,2]], devices: DevicesNone.new)
 
 a=Colours::ROSE
 b=Colours::CHARCOAL_GREY
@@ -1999,6 +2009,68 @@ def ribbon_out(ribbon, n, out, defs)
          xlink:href="#diamond" />
       <use
          xlink:href="#swords_laurel" />
+</symbol>
+    <linearGradient
+       id="linearGradient62600">
+      <stop
+         id="stop62596"
+         offset="0"
+         style="stop-color:#ffffff;stop-opacity:0.58278143" />
+      <stop
+         style="stop-color:#f6f6f6;stop-opacity:0.00784314"
+         offset="0.53631157"
+         id="stop63870" />
+      <stop
+         id="stop63872"
+         offset="0.63382274"
+         style="stop-color:#000000;stop-opacity:0" />
+      <stop
+         id="stop62598"
+         offset="1"
+         style="stop-color:#000000;stop-opacity:0.45695364" />
+    </linearGradient>
+    <radialGradient
+       r="4.277398"
+       fy="-1.6716315"
+       fx="4.9630837e-24"
+       cy="-1.6716315"
+       cx="4.9630837e-24"
+       gradientTransform="matrix(4.5588461,0,0,4.7950798,6.6365582e-8,1.5352894)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient63878"
+       xlink:href="#linearGradient62600" />
+    <radialGradient
+       r="1.4108067"
+       fy="-0.61495411"
+       fx="0.1013199"
+       cy="-0.31807974"
+       cx="0.03039586"
+       gradientTransform="matrix(1.6320944,0,-1.6232672e-6,1.5596523,1.873893e-8,0)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient65039"
+       xlink:href="#linearGradient62600" />
+
+<symbol id="star_of_grayson">
+    <g
+       transform="translate(#{Ribbon::WIDTH/2*Ribbon::SCALE},#{Ribbon::HEIGHT/2*Ribbon::SCALE}) translate(1.5, 1.5) scale(2.5)"
+       id="g62590">
+      <path
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         id="path62587"
+         d="M 1.9056163e-7,-4.3873048 C 0.06680439,-4.3873048 0.49185366,-2.4551662 0.55698294,-2.4403008 c 0.0651293,0.014865 1.28640896,-1.5415095 1.34659746,-1.5125242 0.060188,0.028985 -0.3951789,1.954204 -0.3429493,1.9958557 0.05223,0.041652 1.8278503,-0.8307001 1.869502,-0.7784704 0.041652,0.05223 -1.2039411,1.5892152 -1.1749559,1.6494037 0.028985,0.060188 2.0072635,0.04464 2.0221288,0.10976892 C 4.2921713,-0.91113781 2.5030578,-0.06680411 2.5030578,9.0175003e-8 2.5030578,0.06680428 4.2921713,0.91113796 4.2773059,0.97626723 4.2624406,1.0413965 2.2841624,1.0258476 2.2551771,1.0860361 2.2261918,1.1462246 3.4717847,2.6832102 3.430133,2.7354398 3.3884813,2.7876695 1.6128606,1.9153176 1.5606309,1.9569694 1.5084013,1.9986211 1.9637687,3.9238398 1.9035802,3.952825 1.8433917,3.9818103 0.62211196,2.4254355 0.55698269,2.4403008 0.49185341,2.4551662 0.06680415,4.3873047 -4.4553126e-8,4.3873047 -0.06680424,4.3873047 -0.49185352,2.4551661 -0.55698279,2.4403008 -0.62211207,2.4254354 -1.8433917,3.9818102 -1.9035802,3.9528249 -1.9637687,3.9238397 -1.5084014,1.9986209 -1.560631,1.9569692 -1.6128606,1.9153175 -3.3884813,2.7876693 -3.430133,2.7354397 -3.4717847,2.68321 -2.2261918,1.1462244 -2.2551771,1.0860359 -2.2841623,1.0258474 -4.2624405,1.0413963 -4.2773058,0.976267 -4.2921712,0.91113773 -2.5030576,0.06680403 -2.5030576,-1.6783259e-7 -2.5030576,-0.06680436 -4.2921711,-0.91113804 -4.2773058,-0.97626731 c 0.014865,-0.0651293 1.9931436,-0.0495804 2.0221289,-0.10976889 0.028985,-0.060189 -1.2166077,-1.5971741 -1.174956,-1.6494037 0.041652,-0.05223 1.8172725,0.8201222 1.8695021,0.7784705 0.05223,-0.041652 -0.4031377,-1.9668705 -0.3429492,-1.9958557 0.060188,-0.028985 1.28146818,1.5273895 1.34659746,1.5125242 0.0651293,-0.014865 0.49017854,-1.9470039 0.55698273056163,-1.9470039 z" />
+      <path
+         id="path62594"
+         transform="scale(0.26458333)"
+         d="M 0 -16.582031 C -0.25248829 -16.582031 -1.8593109 -9.2788402 -2.1054688 -9.2226562 C -2.3516266 -9.1664723 -6.9678284 -15.049004 -7.1953125 -14.939453 C -7.4227966 -14.829903 -5.7010342 -7.5539082 -5.8984375 -7.3964844 C -6.0958408 -7.2390605 -12.80742 -10.535294 -12.964844 -10.337891 C -13.122268 -10.140487 -8.4138869 -4.3329528 -8.5234375 -4.1054688 C -8.6329881 -3.8779847 -16.109832 -3.935611 -16.166016 -3.6894531 C -16.2222 -3.4432952 -9.4609375 -0.25248829 -9.4609375 0 C -9.4609375 0.2524883 -16.2222 3.4432952 -16.166016 3.6894531 C -16.109832 3.935611 -8.6329881 3.8779847 -8.5234375 4.1054688 C -8.4138869 4.3329529 -13.122268 10.140487 -12.964844 10.337891 C -12.80742 10.535294 -6.0958408 7.2390605 -5.8984375 7.3964844 C -5.7010342 7.5539083 -7.4227966 14.829903 -7.1953125 14.939453 C -6.9678284 15.049004 -2.3516266 9.1664723 -2.1054688 9.2226562 C -1.8593109 9.2788402 -0.2524883 16.582031 0 16.582031 C 0.25248829 16.582031 1.8593109 9.2788402 2.1054688 9.2226562 C 2.3516266 9.1664723 6.9678284 15.049004 7.1953125 14.939453 C 7.4227966 14.829903 5.7010342 7.5539082 5.8984375 7.3964844 C 6.0958408 7.2390605 12.80742 10.535294 12.964844 10.337891 C 13.122268 10.140487 8.4138869 4.3329528 8.5234375 4.1054688 C 8.6329881 3.8779847 16.109832 3.935611 16.166016 3.6894531 C 16.2222 3.4432952 9.4609375 0.25248829 9.4609375 0 C 9.4609375 -0.2524883 16.2222 -3.4432952 16.166016 -3.6894531 C 16.109832 -3.935611 8.6329881 -3.8779847 8.5234375 -4.1054688 C 8.4138869 -4.3329529 13.122268 -10.140487 12.964844 -10.337891 C 12.80742 -10.535294 6.0958408 -7.2390605 5.8984375 -7.3964844 C 5.7010342 -7.5539083 7.4227966 -14.829903 7.1953125 -14.939453 C 6.9678284 -15.049004 2.3516266 -9.1664723 2.1054688 -9.2226562 C 1.8593109 -9.2788402 0.2524883 -16.582031 0 -16.582031 z M 0 -5.3320312 A 5.3321826 5.3321826 0 0 1 5.3320312 0 A 5.3321826 5.3321826 0 0 1 0 5.3320312 A 5.3321826 5.3321826 0 0 1 -5.3320312 0 A 5.3321826 5.3321826 0 0 1 0 -5.3320312 z "
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:url(#radialGradient63878);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <circle
+         r="1.4108067"
+         cy="-3.8828727e-08"
+         cx="7.3004252e-08"
+         id="path63874"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:url(#radialGradient65039);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.08609272;marker:none;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    </g>
+
 </symbol>
 		<filter height="116%" width="116%" y="-8%" x="-8%"  id="shadow">
 		  <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blurred" />
