@@ -178,6 +178,24 @@ class DevicesOne < DevicesSpecialWithStars
   end
 end
 
+class DevicesSoG < DevicesOne
+  def initialize()
+    super("#star_of_grayson", Metals::GOLD)
+  end
+  
+  def drawDevices(n, out)
+    if(n>1)
+      out<< "<use xlink:href=\"#swords\" class=\"device\" style=\"filter:url(\'#shadow\');fill: #{Metals::GOLD};\" />"
+    end
+    super(1, out)
+  end
+  
+  def values(max)
+    [1,2].select {|x| x<=max}
+  end
+
+end
+
 class DevicesFrame
   attr_reader :frame_colour
   attr_reader :sub_devices
@@ -294,7 +312,7 @@ end
 
 
 RIBBONS['PMV']=VerticalRibbon.new(1, "Parliamentary Medal of Valour", [[Colours::CRIMSON, Ribbon::WIDTH/3.0],[Colours::NAVY_BLUE,Ribbon::WIDTH/3.0],[Colours::WHITE,Ribbon::WIDTH/3.0]])
-RIBBONS['SG']=SolidRibbon.new(1, "Star of Grayson", Colours::CRIMSON, devices: DevicesOne.new("#star_of_grayson", Metals::GOLD))
+RIBBONS['SG']=SolidRibbon.new(1, "Star of Grayson", Colours::CRIMSON, devices: DevicesSoG.new)
 RIBBONS['QCB']=SolidRibbon.new(2, "Queen's Cross for Bravery", Colours::FOREST_GREEN)
 RIBBONS['AM']=SolidRibbon.new(2, "Austin Medal", Colours::LIGHT_BLUE)
 
